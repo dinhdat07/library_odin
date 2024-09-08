@@ -58,9 +58,21 @@ app.delete('/books/:id', async (req, res) => {
 });
 
 app.put('/books/:id', async (req, res) => {
-  const { read } = req.body;
-  await Book.findByIdAndUpdate(req.params.id, { read });
-  res.sendStatus(200);
+  const updateType = req.query.update;
+  if (updateType === "read") {
+    const { read } = req.body;
+    await Book.findByIdAndUpdate(req.params.id, { read });
+    res.sendStatus(200);
+  } else if (updateType === 'details') {
+    const { title, author, info } = req.body;
+    await Book.findByIdAndUpdate(req.params.id, { title, author, info });
+    res.sendStatus(200);
+  } else {
+    return res.status(400).send({ message: 'Invalid update type' });
+  }
+});
+
+app.put('/books/:id', async (req, res) => {
 });
 
 app.listen(port, () => {

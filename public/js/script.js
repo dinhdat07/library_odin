@@ -34,7 +34,8 @@ const app = {
         this.addEventListeners();
     },
 
-    addEventListeners: function() {
+    addEventListeners: function () {
+        
         $$('.delete-icon').forEach(icon => {
             icon.addEventListener('click', async () => {
                 if (confirm('Are you sure you want to delete this book?')) {
@@ -61,6 +62,31 @@ const app = {
                         <textarea class="update-info" placeholder="Book Info" required>${info}</textarea>
                         <button type="submit" class="update-btn">Change</button>
                     </form>`
+                
+                const updateForm = $("#update-form");
+                updateForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const updatedTitle = $('.update-title').value;
+                    const updatedAuthor = $('.update-author').value;
+                    const updatedInfo = $('.update-info').value;
+                    console.log(updatedTitle, updatedAuthor, updatedInfo);
+                    try {
+                        const response = await fetch(`/books/${dataId}?update=details`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ title: updatedTitle, author: updatedAuthor, info: updatedInfo })
+                        });
+                        
+                        if (response.ok) {
+                            this.renderBooks();
+                        } else {
+                            console.error('Failed to update the book on the server.');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                })
+                
             })
         });
 
@@ -68,7 +94,7 @@ const app = {
             icon.addEventListener('click', async () => {
                 const response = await fetch(`/books/${icon.dataset.id}`);
                 const book = await response.json();
-                await fetch(`/books/${icon.dataset.id}`, {
+                await fetch(`/books/${icon.dataset.id}?update=read`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ read: !book.read })
