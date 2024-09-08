@@ -57,7 +57,7 @@ h2 {
 }
 
 .add-board,
-.new-book {
+.new-book{
     width: 15rem; /* 235px */
     height: 20rem; /* 300px */
     border: 0.2rem dotted;
@@ -66,6 +66,10 @@ h2 {
     justify-content: center;
     align-items: center;
     transition: 0.5s;
+}
+
+.add-board{
+    cursor: pointer
 }
 
 #new-book {
@@ -200,22 +204,33 @@ button {
     margin-top: 0.9375rem; /* 15px */
     transition: transform 0.5s ease;
     color: var(--primary-3);
+    cursor: pointer;
 }
 
-button:hover {
+button:hover{
     transform: scale(1.1);
     z-index: 1;
 }
 
-.new-book-title {
+.update-btn {
+    border: 0.2rem solid var(--support-1); 
+    color: var(--support-1);
+    font-size: 1.1rem;
+}
+
+.new-book-title, .update-title {
     font-size: 2.25rem; /* 36px */
     width: 11.25rem; /* 180px */
     height: 2.25rem; /* 36px */
     padding: 0.5rem; /* 8px */
     text-align: center;
 }
+.update-title {
+    color: var(--support-2)
+}
 
-.new-book-author {
+
+.new-book-author, .update-author {
     font-size: 1rem; /* 16px */
     width: 11.25rem; /* 180px */
     height: 1.25rem; /* 18px */
@@ -223,7 +238,7 @@ button:hover {
     text-align: center;
 }
 
-.new-book-info {
+.new-book-info, .update-info  {
     font-size: 0.75rem; /* 16px */
     width: 11.25rem; /* 180px */
     height: 3.25rem; /* 50px */
@@ -236,25 +251,33 @@ button:hover {
     font-style: italic;
 }
 
+.update-author, .update-info {
+    color: var(--support-3)
+}
+
 .new-book-info::-webkit-scrollbar,
-.book .info::-webkit-scrollbar {
+.book .info::-webkit-scrollbar,
+.update-info::-webkit-scrollbar {
     width: 0.3rem;
 }
 
 .new-book-info::-webkit-scrollbar-track,
-.book .info::-webkit-scrollbar-track {
+.book .info::-webkit-scrollbar-track,
+.update-info::-webkit-scrollbar-track {
     background: rgba(228, 197, 158, 0.5); 
     border-radius: 10px;
 }
 
 .new-book-info::-webkit-scrollbar-thumb,
-.book .info::-webkit-scrollbar-thumb {
+.book .info::-webkit-scrollbar-thumb,
+.update-info::-webkit-scrollbar-thumb {
     background: rgb(50, 43, 42, 0.5); 
     border-radius: 10px; 
 }
 
 .new-book-info::-webkit-scrollbar-thumb:hover,
-.book .info::-webkit-scrollbar-thumb:hover {
+.book .info::-webkit-scrollbar-thumb:hover,
+.update-info::-webkit-scrollbar-thumb:hover {
     background: var(--primary-2); 
 }
 
@@ -270,3 +293,4 @@ button:hover {
     grid-template-columns: repeat(5, 1fr);
     row-gap: 1.5rem;
 }
+

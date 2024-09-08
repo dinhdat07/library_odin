@@ -19,6 +19,7 @@ const app = {
         books.forEach(({ _id, title, author, info, read }) => {
             const book = document.createElement("div");
             book.classList.add("book");
+            book.setAttribute("data-id", `${_id}`);
             book.innerHTML = `
                 <div class="title">${title}</div>
                 <div class="author">${author}</div>
@@ -44,7 +45,23 @@ const app = {
         });
 
         $$('.edit-icon').forEach(icon => {
-            icon.addEventListener('click', () => this.editBook(icon.dataset.id));
+            icon.addEventListener('click', async () => {
+                const dataId = icon.dataset.id;
+                const bookElement = $(`.book[data-id="${dataId}"]`);
+                const title = bookElement.querySelector('.title').textContent;
+                const author = bookElement.querySelector('.author').textContent;
+                const info = bookElement.querySelector('.info').textContent;
+
+                // bookElement.classList.add('update-book');
+
+                bookElement.innerHTML = `
+                    <form action="#" id="update-form" method="post">
+                        <input type="text" class="update-title" placeholder="Book Title" value="${title}" required>
+                        <input type="text" class="update-author" placeholder="Author" value="${author}" required>
+                        <textarea class="update-info" placeholder="Book Info" required>${info}</textarea>
+                        <button type="submit" class="update-btn">Change</button>
+                    </form>`
+            })
         });
 
         $$('.check-icon').forEach(icon => {
